@@ -6,6 +6,7 @@
     state: present
   with_items:
     - openstack-neutron
-    - python-networking-midonet
+    - python-networking-midonet-ext
     - python-neutronclient
     - openstack-neutron-ml2
+    - python-neutron-lbaas
