@@ -16,16 +16,28 @@
     # Midonet
     - section: 'DEFAULT'
       option: 'core_plugin'
-      value: 'ml2'
+      value: 'midonet_v2_ext'
     - section: 'DEFAULT'
       option: 'service_plugins'
       value: >-
-        midonet_firewall,
-        midonet.neutron.services.l3.l3_midonet.MidonetL3ServicePlugin,
+        midonet_l3_ext,
+        midonet.neutron.services.firewall.plugin.MidonetFirewallPlugin,
+        qos,
+        neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPluginv2,
+        midonet_logging_resource,
         midonet_bgp
+    - section: DEFAULT
+      option: api_extensions_path
+      value: '/usr/lib/python2.7/dist-packages/midonet_ext/neutron/extensions'
+    - section: DEFAULT
+      option: dhcp_agent_notification
+      value: 'False'
     - section: DEFAULT
       option: allow_overlapping_ips
       value: 'True'
+    - section: qos
+      option: notification_drivers
+      value: 'midonet'
     # Messaging
     - section: DEFAULT
       option: rpc_backend
@@ -39,6 +51,10 @@
     - section: oslo_messaging_rabbit
       option: rabbit_password
       value: '{{ openstack_neutron_controller_rabbit_password }}'
+    # Service providers
+    - section: service_providers
+      option: service_provider
+      value: 'LOADBALANCERV2:Midonet:midonet_ext.neutron.services.loadbalancer.v2_driver.MidonetLoadBalancerDriver:default'
     # Keystone
     - section: DEFAULT
       option: auth_strategy

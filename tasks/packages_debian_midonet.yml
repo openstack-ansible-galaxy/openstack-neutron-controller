@@ -6,5 +6,6 @@
     state: present
   with_items:
     - neutron-server
-    - python-networking-midonet
+    - python-networking-midonet-ext
     - python-neutronclient
+    - python-neutron-lbaas
